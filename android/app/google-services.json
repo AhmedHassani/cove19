@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "345698030062",
+    "project_id": "cov19-c32d6",
+    "storage_bucket": "cov19-c32d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:345698030062:android:9f7a80eb9c724add3d3eff",
+        "android_client_info": {
+          "package_name": "com.example.coved19"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "345698030062-a46hugavlkhbov0da4gs5bj61vkqm3gj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHYO5ColJlgaRVNGB801z03XkXBsTKVLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "345698030062-a46hugavlkhbov0da4gs5bj61vkqm3gj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
