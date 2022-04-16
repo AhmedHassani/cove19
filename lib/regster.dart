@@ -14,20 +14,22 @@ var val1 = -1;
 var val2 = -1;
 
 class _RegsterState extends State<Regster> {
+
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _placeController = TextEditingController();
+  final TextEditingController _fatherController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _numberController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
+
 
 
   @override
   void initState() {
     //FirebaseFirestore firestore = FirebaseFirestore.instance;
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
-    users.add({
-      'full_name': "ff",
-      'company': "ff",
-      'age': "ff"
-    }).then((value) => print("User Added"))
-      .catchError((error) => print("Failed to add user: $error"));
+
   }
 
   @override
@@ -48,7 +50,7 @@ class _RegsterState extends State<Regster> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
-                controller: _usernameController,
+                controller: _nameController,
                 textAlign: TextAlign.right,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -78,7 +80,7 @@ class _RegsterState extends State<Regster> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
-                controller: _usernameController,
+                controller: _emailController,
                 textAlign: TextAlign.right,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -93,7 +95,7 @@ class _RegsterState extends State<Regster> {
               padding:
               const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 0),
               child: TextField(
-                controller: _passwordController,
+                controller: _fatherController,
                 textAlign: TextAlign.right,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -107,7 +109,7 @@ class _RegsterState extends State<Regster> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
-                controller: _usernameController,
+                controller: _dateController,
                 textAlign: TextAlign.right,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -122,7 +124,7 @@ class _RegsterState extends State<Regster> {
               padding:
               const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 0),
               child: TextField(
-                controller: _passwordController,
+                controller: _cityController,
                 textAlign: TextAlign.right,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -138,7 +140,7 @@ class _RegsterState extends State<Regster> {
               padding:
               const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 0),
               child: TextField(
-                controller: _passwordController,
+                controller: _placeController,
                 textAlign: TextAlign.right,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -153,7 +155,7 @@ class _RegsterState extends State<Regster> {
               padding:
               const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 0),
               child: TextField(
-                controller: _passwordController,
+                controller: _numberController,
                 textAlign: TextAlign.right,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -290,8 +292,21 @@ class _RegsterState extends State<Regster> {
             FlatButton(
               textColor: Colors.white, // foreground
               onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Select()));
+                CollectionReference users = FirebaseFirestore.instance.collection('users');
+                users.add({
+                  'city ': _cityController.text,
+                  'name':_nameController.text,
+                  'date': _dateController.text,
+                  'diabetes': val1,
+                  'email ': _emailController.text,
+                  'father_name': _fatherController.text,
+                  'heart': val,
+                  'home ': _numberController.text,
+                  'password': _passwordController.text,
+                  'place ': _placeController.text,
+                  'pressure ': val2,
+                }).then((value) => sccessful())
+                    .catchError((error) => filed());
               },
               child: Container(
                 width: 200,
@@ -309,5 +324,16 @@ class _RegsterState extends State<Regster> {
         ),
       ),
     );
+  }
+
+  sccessful() {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text("تم الحفظ البيانات"),
+    ));
+    }
+  filed(){
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text("تعذر حفظ البيانات"),
+    ));
   }
 }

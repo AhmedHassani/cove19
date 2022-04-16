@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import 'fonts.dart';
 import 'select.dart';
 
 class Login extends StatefulWidget {
@@ -18,7 +20,7 @@ class _LoginState extends State<Login> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: _color,
-        title: Text("تسجيل دخول"),
+        title:H2("تسجيل دخول"),
         elevation: 0,
       ),
       body: Center(
@@ -27,7 +29,6 @@ class _LoginState extends State<Login> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Padding(
-              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 controller: _usernameController,
@@ -58,7 +59,22 @@ class _LoginState extends State<Login> {
             FlatButton(
               textColor: Colors.white, // foreground
               onPressed: () {
-                Navigator.push(context,MaterialPageRoute(builder:(context)=>Select()));
+                FirebaseFirestore.instance
+                    .collection('users')
+                    .get()
+                    .then((QuerySnapshot querySnapshot) {
+                  querySnapshot.docs.forEach((doc) {
+                    if(doc["email "]==_usernameController.text&&_passwordController.text==doc["password"]){
+                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                          Select(doc["email "])), (Route<dynamic> route) => false);
+                    }else{
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text("اسم المستخدم او كلمه المرور غير صحيحه"),
+                      ));
+                    }
+                  });
+                });
+
               },
               child:Container(
                 width: 200,

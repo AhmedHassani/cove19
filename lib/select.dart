@@ -1,10 +1,13 @@
+import 'package:coved19/reservation.dart';
 import 'package:flutter/material.dart';
 
+import 'fonts.dart';
 import 'login.dart';
 
 var _color = Color.fromRGBO(108, 99, 255, 1);
 class Select extends StatefulWidget {
-  const Select({Key? key}) : super(key: key);
+  String email;
+  Select(this.email, {Key? key}) : super(key: key);
 
   @override
   State<Select> createState() => _SelectState();
@@ -16,6 +19,10 @@ class _SelectState extends State<Select> {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
+          title:Align(
+            alignment: Alignment.centerRight,
+            child: H2("تفاصيل الموعد"),
+          ),
           backgroundColor: _color,
         ),
         body: Container(
@@ -27,13 +34,15 @@ class _SelectState extends State<Select> {
               children: [
                 FlatButton(
                   textColor: Colors.white, // foregroundff
-                  onPressed: () { },
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder:(context)=>Reservation(widget.email)));
+                  },
                   child:Container(
                     width: 200,
                     padding: EdgeInsets.all(5),
                     color: _color,
                     child:Center(
-                      child:Text('حجز موعد'),
+                      child:H2("حجز موعد"),
                     ),
                   ),
                 ),
@@ -47,7 +56,7 @@ class _SelectState extends State<Select> {
                     padding: EdgeInsets.all(5),
                     color: _color,
                     child:Center(
-                      child:Text('عرض الموعد'),
+                      child:H2("عرض الموعد"),
                     ),
                   ),
                 )
