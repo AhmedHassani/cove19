@@ -1,4 +1,5 @@
 import 'package:coved19/reservation.dart';
+import 'package:coved19/show.dart';
 import 'package:flutter/material.dart';
 
 import 'fonts.dart';
@@ -49,7 +50,7 @@ class _SelectState extends State<Select> {
                 FlatButton(
                   textColor: Colors.white, // foreground
                   onPressed: () {
-                    Navigator.push(context,MaterialPageRoute(builder:(context)=>Login()));
+                    Navigator.push(context,MaterialPageRoute(builder:(context)=>Show(widget.email)));
                   },
                   child:Container(
                     width: 200,
