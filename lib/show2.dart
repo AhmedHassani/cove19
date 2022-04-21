@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'fonts.dart';
 
 
-class Show extends StatefulWidget {
+class Show2 extends StatefulWidget {
   String ? email;
-
-  Show(this.email);
+  String ? name;
+  Show2(this.email,this.name);
 
   @override
   _ShowState createState() => _ShowState();
@@ -15,7 +15,7 @@ class Show extends StatefulWidget {
 
 var _color = const Color.fromRGBO(108, 99, 255, 1);
 
-class _ShowState extends State<Show> {
+class _ShowState extends State<Show2> {
 
   CollectionReference ? users;
 
@@ -30,7 +30,7 @@ class _ShowState extends State<Show> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: _color,
-        title: H2("تفاصيل الحجز"),
+        title: H2("${widget.name}تفاصيل الحجز "),
         elevation: 0,
       ),
       body:FutureBuilder<DocumentSnapshot>(

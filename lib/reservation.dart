@@ -6,8 +6,8 @@ import 'fonts.dart';
 
 class Reservation extends StatefulWidget {
   String ? email;
-
-  Reservation(this.email);
+  String ? name;
+  Reservation(this.email,this.name);
 
   @override
   _ReservationState createState() => _ReservationState();
@@ -211,18 +211,25 @@ class _ReservationState extends State<Reservation> {
                     child: Container(
                       margin: EdgeInsets.only(bottom: 18),
                       child: DateTimeFormField(
-                        decoration: const InputDecoration(
-                          hintStyle: TextStyle(color: Colors.black45),
-                          errorStyle: TextStyle(color: Colors.redAccent),
+                        decoration:  InputDecoration(
+                          hintStyle: TextStyle(color: Colors.black45,fontFamily: 'Cairo',fontSize: 14),
+                          errorStyle: TextStyle(color: Colors.redAccent,fontFamily: 'Cairo',fontSize: 14),
                           suffixIcon: Icon(Icons.arrow_drop_down),
                           labelText: 'تاريخ الجرعه',
+                          labelStyle: style(),
                         ),
-                        mode: DateTimeFieldPickerMode.date,
+                        mode:DateTimeFieldPickerMode.date,
                         autovalidateMode: AutovalidateMode.always,
-                        validator: (e) =>
-                        (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
+                        validator: (e) {
+                          //(e?.day ?? 0) == 1 ? 'Please not the first day' : null;
+                          if(e?.weekday==7||e?.weekday==6){
+                            return "من فضلك اخنيار احد الايام من الاحد الى الخميس ";
+                          }
+                          return null;
+                        },
                         onDateSelected: (DateTime value) {
-                          date = value.timeZoneName;
+                          print("day is : ${value.weekday}");
+                          date = "$value";
                         },
                       ),
                     )),
@@ -254,17 +261,23 @@ class _ReservationState extends State<Reservation> {
                       margin: EdgeInsets.only(bottom: 18),
                   child: DateTimeFormField(
                     decoration: const InputDecoration(
-                      hintStyle: TextStyle(color: Colors.black45),
-                      errorStyle: TextStyle(color: Colors.redAccent),
+                      hintStyle: TextStyle(color: Colors.black45,fontFamily: 'Cairo',fontSize: 14),
+                      errorStyle: TextStyle(color: Colors.redAccent,fontFamily: 'Cairo',fontSize: 14),
                       suffixIcon: Icon(Icons.arrow_drop_down),
                       labelText: 'وقت الجرعه',
                     ),
                     mode: DateTimeFieldPickerMode.time,
                     autovalidateMode: AutovalidateMode.always,
-                    validator: (e) =>
-                        (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
+                    validator: (e) {
+                      if(e!=null) {
+                        if (e!.hour > 13 || e!.hour < 8) {
+                          return "يرجى الاختيار احد الاوقات من 8 صباحا الى 2 مساء";
+                        }
+                      }
+                      return null;
+                    },
                     onDateSelected: (DateTime value) {
-                      time = value.timeZoneName;
+                      time = "$value";
                     },
                   ),
                 )),
@@ -293,9 +306,10 @@ class _ReservationState extends State<Reservation> {
               onPressed: () {
                 CollectionReference users =
                     FirebaseFirestore.instance.collection('reservation');
-                users
-                    .add({
+                users.doc(widget.email)
+                .set({
                       'city ': selectedValue,
+                      'name':widget.name,
                       'email': widget.email,
                       'center': selectedValue2,
                       'date':  date,

@@ -37,6 +37,7 @@ dependencies:
   cloud_firestore:
   firebase_core:
   date_field: ^3.0.0
+  simple_fontellico_progress_dialog: ^0.2.1
 
 dev_dependencies:
   flutter_test:

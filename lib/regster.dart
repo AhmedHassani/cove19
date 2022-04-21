@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
+import 'fonts.dart';
 import 'select.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,13 +25,14 @@ class _RegsterState extends State<Regster> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _numberController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
+  SimpleFontelicoProgressDialog ? _dialog;
 
 
 
   @override
   void initState() {
     //FirebaseFirestore firestore = FirebaseFirestore.instance;
-
+     _dialog= SimpleFontelicoProgressDialog(context: context, barrierDimisable:  false);
   }
 
   @override
@@ -38,7 +41,7 @@ class _RegsterState extends State<Regster> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: _color,
-        title: const Text("انشاء حساب"),
+        title: H1("انشاء حساب"),
         elevation: 0,
       ),
       body: Center(
@@ -52,9 +55,10 @@ class _RegsterState extends State<Regster> {
               child: TextField(
                 controller: _nameController,
                 textAlign: TextAlign.right,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                decoration:  InputDecoration(
+                  border: const OutlineInputBorder(),
                   labelText: 'الاسم الكامل',
+                  labelStyle: style()
                 ),
               ),
             ),
@@ -68,9 +72,10 @@ class _RegsterState extends State<Regster> {
                 controller: _passwordController,
                 obscureText: true,
                 textAlign: TextAlign.right,
-                decoration: const InputDecoration(
+                decoration:  InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'كلمه السر',
+                    labelText: 'كلمه السر',
+                    labelStyle: style()
                 ),
               ),
             ),
@@ -82,9 +87,10 @@ class _RegsterState extends State<Regster> {
               child: TextField(
                 controller: _emailController,
                 textAlign: TextAlign.right,
-                decoration: const InputDecoration(
+                decoration:  InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'البريد الالكتروني',
+                    labelText: 'البريد الالكتروني',
+                    labelStyle: style()
                 ),
               ),
             ),
@@ -97,9 +103,10 @@ class _RegsterState extends State<Regster> {
               child: TextField(
                 controller: _fatherController,
                 textAlign: TextAlign.right,
-                decoration: const InputDecoration(
+                decoration:  InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'اسم الاب',
+                    labelText: 'اسم الاب',
+                    labelStyle: style()
                 ),
               ),
             ),
@@ -111,9 +118,10 @@ class _RegsterState extends State<Regster> {
               child: TextField(
                 controller: _dateController,
                 textAlign: TextAlign.right,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                decoration:  InputDecoration(
+                  border: const OutlineInputBorder(),
                   labelText: 'تاريخ الميلاد',
+                    labelStyle: style()
                 ),
               ),
             ),
@@ -126,10 +134,10 @@ class _RegsterState extends State<Regster> {
               child: TextField(
                 controller: _cityController,
                 textAlign: TextAlign.right,
-                decoration: const InputDecoration(
+                decoration:  InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'المحافظه',
-                  labelStyle: TextStyle()
+                    labelStyle: style()
                 ),
               ),
             ),
@@ -142,9 +150,10 @@ class _RegsterState extends State<Regster> {
               child: TextField(
                 controller: _placeController,
                 textAlign: TextAlign.right,
-                decoration: const InputDecoration(
+                decoration:  InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'المنطقه',
+                    labelStyle: style()
                 ),
               ),
             ),
@@ -157,9 +166,10 @@ class _RegsterState extends State<Regster> {
               child: TextField(
                 controller: _numberController,
                 textAlign: TextAlign.right,
-                decoration: const InputDecoration(
+                decoration:  InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'رقم الدار',
+                    labelStyle: style()
                 ),
               ),
             ),
@@ -183,7 +193,7 @@ class _RegsterState extends State<Regster> {
                   },
                   activeColor: _color,
                 ),
-                Text("نعم"),
+                H1("نعم"),
                 Radio(
                   value: 2,
                   groupValue: val,
@@ -194,13 +204,13 @@ class _RegsterState extends State<Regster> {
                   },
                   activeColor: _color,
                 ),
-                Text("لا"),
+                H1("لا"),
                 const SizedBox(
                   height: 20,
                 ),
-                const  Padding(
+                Padding(
                   padding: EdgeInsets.only(right: 25),
-                  child:Text("مريض قلب "),
+                  child:H1("مريض قلب "),
                 ),
                 const SizedBox(
                   height: 10,
@@ -224,7 +234,7 @@ class _RegsterState extends State<Regster> {
                   },
                   activeColor: _color,
                 ),
-                Text("نعم"),
+                H1("نعم"),
                 Radio(
                   value: 2,
                   groupValue: val1,
@@ -235,13 +245,13 @@ class _RegsterState extends State<Regster> {
                   },
                   activeColor: _color,
                 ),
-                Text("لا"),
+                H1("لا"),
                 const SizedBox(
                   height: 20,
                 ),
-                const  Padding(
+                Padding(
                   padding: EdgeInsets.only(right: 25),
-                  child:Text("مريض سكر "),
+                  child:H1("مريض سكر "),
                 ),
                 const SizedBox(
                   height: 10,
@@ -265,7 +275,7 @@ class _RegsterState extends State<Regster> {
                   },
                   activeColor: _color,
                 ),
-                Text("نعم"),
+                H1("نعم"),
                 Radio(
                   value: 2,
                   groupValue: val2,
@@ -276,13 +286,13 @@ class _RegsterState extends State<Regster> {
                   },
                   activeColor: _color,
                 ),
-                Text("لا"),
+                H1("لا"),
                 const SizedBox(
                   height: 20,
                 ),
-                const  Padding(
+                Padding(
                   padding: EdgeInsets.only(right: 25),
-                  child:Text("مريض ظغط ",),
+                  child:H1("مريض ظغط ",),
                 ),
                 const SizedBox(
                   height: 10,
@@ -292,6 +302,7 @@ class _RegsterState extends State<Regster> {
             FlatButton(
               textColor: Colors.white, // foreground
               onPressed: () {
+                showDialog();
                 CollectionReference users = FirebaseFirestore.instance.collection('users');
                 users.add({
                   'city ': _cityController.text,
@@ -312,8 +323,8 @@ class _RegsterState extends State<Regster> {
                 width: 200,
                 padding: EdgeInsets.all(12),
                 color: _color,
-                child: const Center(
-                  child: Text('حفظ البيانات'),
+                child:  Center(
+                  child: H1('حفظ البيانات'),
                 ),
               ),
             ),
@@ -327,13 +338,20 @@ class _RegsterState extends State<Regster> {
   }
 
   sccessful() {
+    _dialog!.hide();
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text("تم الحفظ البيانات"),
     ));
     }
+
   filed(){
+    _dialog!.hide();
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text("تعذر حفظ البيانات"),
     ));
+  }
+  void showDialog() async{
+    _dialog!.show(message: 'Loading...');
+    await Future.delayed(Duration(seconds: 1));
   }
 }

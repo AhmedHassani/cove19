@@ -5,6 +5,7 @@ import 'package:coved19/regster.dart';
 import 'package:flutter/material.dart';
 
 import 'login.dart';
+import 'login_admin.dart';
 
 var _color = Color.fromRGBO(108, 99, 255, 0.9);
 class HomePage extends StatefulWidget {
@@ -71,7 +72,22 @@ class _HomePageState extends State<HomePage> {
                           child:H1("مريض سابق"),
                         ),
                       ),
-                    )
+                    ),
+                    FlatButton(
+                      textColor: Colors.white, // foreground
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                            LoginAdmin()));
+                      },
+                      child:Container(
+                        width: 200,
+                        padding: EdgeInsets.all(5),
+                        color: _color,
+                        child:Center(
+                          child:H2("تسجيل دخول كطبيب"),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

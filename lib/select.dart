@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 
 import 'fonts.dart';
 import 'login.dart';
+import 'login_admin.dart';
 
 var _color = Color.fromRGBO(108, 99, 255, 1);
 class Select extends StatefulWidget {
   String email;
-  Select(this.email, {Key? key}) : super(key: key);
+  String name;
+  Select(this.email,this.name, {Key? key}) : super(key: key);
 
   @override
   State<Select> createState() => _SelectState();
@@ -24,6 +26,13 @@ class _SelectState extends State<Select> {
             alignment: Alignment.centerRight,
             child: H2("تفاصيل الموعد"),
           ),
+          leading: IconButton(
+            icon: const Icon(Icons.logout,color: Colors.white,),
+            onPressed: (){
+              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+              Login()), (Route<dynamic> route) => false);
+            },
+          ),
           backgroundColor: _color,
         ),
         body: Container(
@@ -36,7 +45,8 @@ class _SelectState extends State<Select> {
                 FlatButton(
                   textColor: Colors.white, // foregroundff
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder:(context)=>Reservation(widget.email)));
+                    Navigator.push(context, MaterialPageRoute(builder:(context)=>Reservation(widget.email,widget.name)));
+
                   },
                   child:Container(
                     width: 200,
@@ -60,7 +70,7 @@ class _SelectState extends State<Select> {
                       child:H2("عرض الموعد"),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
