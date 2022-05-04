@@ -25,6 +25,8 @@ class _ReservationState extends State<Reservation> {
   String selectedValue3 = "الجرعه ١";
   String ?date;
   String ?time;
+  bool timev=false;
+  bool datev=false;
   final _dateController = TextEditingController();
 
   @override
@@ -222,14 +224,17 @@ class _ReservationState extends State<Reservation> {
                         autovalidateMode: AutovalidateMode.always,
                         validator: (e) {
                           //(e?.day ?? 0) == 1 ? 'Please not the first day' : null;
-                          if(e?.weekday==7||e?.weekday==6){
+                          print(e?.weekday);
+                          if(e?.weekday==5||e?.weekday==6){
+                            datev=true;
                             return "من فضلك اخنيار احد الايام من الاحد الى الخميس ";
                           }
+                          datev=false;
                           return null;
                         },
                         onDateSelected: (DateTime value) {
-                          print("day is : ${value.weekday}");
-                          date = "$value";
+
+                          date = "${value.year} / ${value.month} / ${value.day} ";
                         },
                       ),
                     )),
@@ -271,13 +276,21 @@ class _ReservationState extends State<Reservation> {
                     validator: (e) {
                       if(e!=null) {
                         if (e!.hour > 13 || e!.hour < 8) {
+                          timev=true;
                           return "يرجى الاختيار احد الاوقات من 8 صباحا الى 2 مساء";
                         }
                       }
+                      timev=false;
                       return null;
                     },
                     onDateSelected: (DateTime value) {
-                      time = "$value";
+                      if(value.hour>=12 && value.hour<=23){
+                        time = "${value.hour} : ${value.minute}  PM";
+                      }else{
+                        time = "${value.hour} : ${value.minute}  AM";
+                      }
+                      print(time);
+
                     },
                   ),
                 )),
@@ -304,21 +317,25 @@ class _ReservationState extends State<Reservation> {
             FlatButton(
               textColor: Colors.white, // foreground
               onPressed: () {
-                CollectionReference users =
-                    FirebaseFirestore.instance.collection('reservation');
-                users.doc(widget.email)
-                .set({
-                      'city ': selectedValue,
-                      'name':widget.name,
-                      'email': widget.email,
-                      'center': selectedValue2,
-                      'date':  date,
-                      'time ': time,
-                      'place': selectedValue1,
-                      'dose': selectedValue3,
-                    })
-                    .then((value) => sccessful())
-                    .catchError((error) => filed());
+                if(timev==false && datev==false) {
+                  CollectionReference users =
+                  FirebaseFirestore.instance.collection('reservation');
+                  users.doc(widget.email)
+                      .set({
+                    'city ': selectedValue,
+                    'name': widget.name,
+                    'email': widget.email,
+                    'center': selectedValue2,
+                    'date': date,
+                    'time ': time,
+                    'place': selectedValue1,
+                    'dose': selectedValue3,
+                  })
+                      .then((value) => sccessful())
+                      .catchError((error) => filed());
+                }else{
+                  filed();
+                }
               },
               child: Container(
                 width: 200,
